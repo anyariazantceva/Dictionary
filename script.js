@@ -9,6 +9,8 @@ window.addEventListener("load", function () {
         let currentQuestionElem = document.querySelector("#current_question");
         let totalQuestionsElem = document.querySelector("#total_questions");
         let mistakesBlock = document.querySelector("#mistakes");
+        let currentErrorElem = document.querySelector("#current_error");
+        let totalError = document.querySelector("#total_error");
         let currentMistakes = 0;
         let totalMistakes = 0;
 
@@ -38,7 +40,7 @@ window.addEventListener("load", function () {
             //отправка запроса
             //создаем объект и указываем адрес с которого хотим получить ответ
             let req = new XMLHttpRequest();
-            req.open("GET", "http://http://localhost:5500/getDictionary?limit="+limitQuestions);
+            req.open("GET", "http://localhost:5500/getDictionary?limit="+limitQuestions);
             //отправляем запрос на сервер
             req.send();
             //ждем пока загрузит ответ
@@ -123,6 +125,9 @@ window.addEventListener("load", function () {
                         }
                     }
                 } else {
+                    currentErrorElem.innerHTML = currentQuestionErrors+1;
+                    totalError.innerHTML = totalErrors+1;
+
                     btn.classList.remove("btn-primary");
                     btn.classList.add("btn-danger");
                     totalMistakes++;
