@@ -11,6 +11,7 @@ window.addEventListener("load", function () {
         let mistakesBlock = document.querySelector("#mistakes");
         let currentErrorElem = document.querySelector("#current_error");
         let totalError = document.querySelector("#total_error");
+        let getErrorsBtn = document.querySelector("#getErrors");
         let currentMistakes = 0;
         let totalMistakes = 0;
 
