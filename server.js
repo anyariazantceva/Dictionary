@@ -1,7 +1,7 @@
 const express = require("express");
 const fs = require("fs");
 const app = express();
-const port = 5500;
+const port = 4000;
 const statLocation = __dirname + "/errors-stat.txt";
 
 let dictionary = [
@@ -54,10 +54,33 @@ app.get("/stat", (req, res) => {
    res.send(totalErrors.toString());
 });
 
+
 // app.get("/...", (req, res) => {
 //     req.query.limit...
 //     res.json(partOfDictionary);
 // });
+app.get("/getDictionary", (req,res)=> {
+    let limit = req.query.limit;
+    //запускаем сортировку массива
+    shuffle(dictionary);
+    //извлекаем кол-во слов = limit
+    let part = dictionary.slice(0,limit);
+    let randomLetters = [];
+    for (let word of part){
+        //перемешиваем символы
+        let randWord = shuffle(word.split(""));
+        //сохраняем в массив
+        randomLetters.push(randWord);
+    }
+    // сформируем ответ сервера в виде объекта
+    let dict = {
+        answer: part, //сами слова
+        question: randomLetters //слова с перемешанными буквами
+    };
+    //массив преобразуем в json и отправляем клиенту
+    res.json(dict);
+    //res.send(JSON.stringify(part));
+});
 
 app.listen(port, () => {
    console.log(`Сервер запущен на порту ${port}`) ;
